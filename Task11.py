@@ -4,17 +4,18 @@ Implement your approach
 using the input and output described in Task 2.1.
 Call this file Task11.
 """
-
 import sys
 
-
-def search_list(list, start, stop):
-    # This function is Theta(n**2)
-    x = [y for y in list in range(int(start), int(stop) + 1)]
-    sys.stdout.write(str(x))
-    sys.stdout.flush()
+def search_list(list1, start, stop):
+    # This function is Theta(n)
+    #x = [y for y in list in range(int(start), int(stop) + 1)]
+    #for i in range(int(start), int(stop) + 1):
+    for i in range(len(list1)):
+        if list1[i] >= start or i <= stop:
+            print(i, end="")
 
 def main():
+    # Function is currently Theta(n**2)
     a = []  # Initialises an empty list
     # r respresents the size of the list
     r = sys.stdin.readline().strip().split(" ")
@@ -29,7 +30,9 @@ def main():
     print(a)    # DEBUG
     # This take the range for which the elements will be searched.
     start, stop = sys.stdin.readline().strip().split(" ")
-    #search_list(a, start, stop)
+    start = int(start)
+    stop = int(stop)
+    search_list(a, start, stop)
 
 
 
