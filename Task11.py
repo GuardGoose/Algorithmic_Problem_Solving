@@ -15,15 +15,21 @@ def search_list(list, start, stop):
     sys.stdout.flush()
 
 def main():
-    a = []
-    j = sys.stdin.readline().strip().split(" ")
-    j1 = ''.join(j)
-    for i in range(int(j1)):    
-        for line in sys.stdin.readline().strip().split(" "):
-            a.append(line)
+    a = []  # Initialises an empty list
+    # r respresents the size of the list
+    r = sys.stdin.readline().strip().split(" ")
+    # Adds r to r1
+    r1 = ''.join(r)
+    # Input a value for the size of r1
+    # e.g. if r = 3, then the list would contain 3 elements
+    # e.g [1, 2, 3]
+    for i in range(int(r1)):
+        # This creates the list, by appending the input.
+        a.append(sys.stdin.readline().strip().split(" "))
     print(a)    # DEBUG
+    # This take the range for which the elements will be searched.
     start, stop = sys.stdin.readline().strip().split(" ")
-    search_list(a, start, stop)
+    #search_list(a, start, stop)
 
 
 
