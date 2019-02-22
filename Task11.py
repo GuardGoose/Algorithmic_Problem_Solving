@@ -8,14 +8,17 @@ import sys
 
 def search_list(list1, start, stop):
     # This function is Theta(n)
-    #x = [y for y in list in range(int(start), int(stop) + 1)]
-    #for i in range(int(start), int(stop) + 1):
-    for i in range(len(list1)):
-        if list1[i] >= start or i <= stop:
-            print(i, end="")
-
+    answer = []
+    range2 = range(start, (stop + 1))
+    # compare = []
+    # compare.append(range(start, (stop + 1)))
+    for elem in list1:
+        if start <= int(elem) <= stop:
+            answer.append(elem)
+    print(answer)
+            
 def main():
-    # Function is currently Theta(n**2)
+    # Function is currently Theta(n)
     a = []  # Initialises an empty list
     # r respresents the size of the list
     r = sys.stdin.readline().strip().split(" ")
@@ -25,8 +28,8 @@ def main():
     # e.g. if r = 3, then the list would contain 3 elements
     # e.g [1, 2, 3]
     for i in range(int(r1)):
-        # This creates the list, by appending the input.
-        a.append(sys.stdin.readline().strip().split(" "))
+        # This creates the list
+        a.extend(sys.stdin.readline().strip().split(" "))
     print(a)    # DEBUG
     # This take the range for which the elements will be searched.
     start, stop = sys.stdin.readline().strip().split(" ")
