@@ -6,7 +6,7 @@ Call this file Task11.
 """
 import sys
 
-def search_list(list1, start, stop):
+def list_interval(list1, start, stop):
     # This function is Theta(n)
     answer = []
     range2 = range(start, (stop + 1))
@@ -35,7 +35,7 @@ def main():
     start, stop = sys.stdin.readline().strip().split(" ")
     start = int(start)
     stop = int(stop)
-    search_list(a, start, stop)
+    list_interval(a, start, stop)
 
 
 
