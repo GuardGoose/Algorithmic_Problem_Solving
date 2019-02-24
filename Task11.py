@@ -8,16 +8,16 @@ import sys
 
 def list_interval(list1, start, stop):
     # This function is Theta(n)
-    answer = []
-    range2 = range(start, (stop + 1))
-    # compare = []
-    # compare.append(range(start, (stop + 1)))
+    answer = [] # Initalises a empty list
     for elem in list1:
+        # If the element is between or equal to
+        # start or stop then it's appended to the list
         if start <= int(elem) <= stop:
             answer.append(elem)
+    # List is printed
     print(answer)
             
-def main():
+def input_string():
     # Function is currently Theta(n)
     a = []  # Initialises an empty list
     # r respresents the size of the list
@@ -26,9 +26,8 @@ def main():
     r1 = ''.join(r)
     # Input a value for the size of r1
     # e.g. if r = 3, then the list would contain 3 elements
-    # e.g [1, 2, 3]
+    # e.g. [1, 2, 3]
     for i in range(int(r1)):
-        # This creates the list
         a.extend(sys.stdin.readline().strip().split(" "))
     print(a)    # DEBUG
     # This take the range for which the elements will be searched.
@@ -37,7 +36,8 @@ def main():
     stop = int(stop)
     list_interval(a, start, stop)
 
-
+def main():
+    input_string()
 
 if __name__ == '__main__':
     main()
