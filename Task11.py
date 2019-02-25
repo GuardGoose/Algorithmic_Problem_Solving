@@ -15,7 +15,8 @@ def list_interval(list1, start, stop):
         if start <= int(elem) <= stop:
             answer.append(elem)
     # List is printed
-    print(answer)
+    sys.stdout.write(str(answer))
+    sys.stdout.flush()
             
 def input_string():
     # Function is currently Theta(n)
