@@ -1,6 +1,38 @@
 import sys
 
 
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+def array_to_bst(array):
+    if not array:
+        return None
+    
+    # sorts the array as integer
+    array = sorted(array, key=int)
+    
+    # find mid
+    mid = (len(array)) / 2
+    mid = int(mid)
+    
+    # make middle element the root
+    root = Node(array[mid])
+    
+    # left subtree root has all
+    # values < array[mid]
+    root.left = array_to_bst(array[:mid])
+    
+    # right subtree of root has all
+    # values > array[mid]
+    root.right = array_to_bst(array[mid + 1:])
+    # returns the root
+    return root
+    
+    
+    
 def input_function():
     c = 0   # Initalises a counter
     query_values = []   # Initalises an empty list
@@ -26,6 +58,11 @@ def input_function():
         # added to sepereate sublists
         c += 1
     print(query_values) #DEBUG
-
-if __name__ == '__main__':
+    return input_list, query_values
+    
+def main():
     input_function()
+
+    
+if __name__ == '__main__':
+    main()
