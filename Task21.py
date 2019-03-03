@@ -30,8 +30,18 @@ def array_to_bst(array):
     root.right = array_to_bst(array[mid + 1:])
     # returns the root
     return root
-    
-    
+
+def find_split_node(tree, x, y):
+    v = root(tree)
+    v1 = v
+    while v != node:
+        if y <= v1 > x:
+            if y <= v1:
+                v = root.left
+            else:
+                v = root.right
+        v1 = v
+    return v
     
 def input_function():
     c = 0   # Initalises a counter
@@ -57,12 +67,16 @@ def input_function():
         # Increments by 1 so sepereate queries get
         # added to sepereate sublists
         c += 1
-    print(query_values) #DEBUG
-    return input_list, query_values
+    #print(query_values) #DEBUG
+    return query_values
+    return input_list
+
+    
+    
     
 def main():
-    input_function()
-
+    input_list, query_values = input_function()
+    print(query_values)
     
 if __name__ == '__main__':
     main()
