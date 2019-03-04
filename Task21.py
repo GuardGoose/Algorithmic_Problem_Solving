@@ -34,13 +34,12 @@ def array_to_bst(array):
 def find_split_node(tree, x, y):
     v = root(tree)
     v1 = v
-    while v != node:
-        if y <= v1 > x:
-            if y <= v1:
-                v = root.left
-            else:
-                v = root.right
-        v1 = v
+    while v != node and y <= v1 > x:
+        if y <= v1:
+            v = root.left
+        else:
+            v = root.right
+    v1 = v
     return v
     
 def input_function():
@@ -68,15 +67,26 @@ def input_function():
         # added to sepereate sublists
         c += 1
     #print(query_values) #DEBUG
-    return query_values
-    return input_list
+    return query_values, input_list
 
+# def sub_list(query_values):
+#     # Should help iterate through sublists
+#     c = 0
+#     for x, y in query_values[c][c]:
+#         return x, y
+#     c += 1
     
     
     
 def main():
-    input_list, query_values = input_function()
+    query_values, input_list = input_function()
     print(query_values)
+    BST = array_to_bst(input_list)
+    x, y = query_values[0]
+    find_split_node(BST, x, y)
+    
+    
+    
     
 if __name__ == '__main__':
     main()
