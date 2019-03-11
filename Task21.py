@@ -1,46 +1,26 @@
 import sys
 
 
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.left = None
-        self.right = None
-
-def array_to_bst(array):
-    if not array:
+def one_d_range(tree, interval1, interval2):
+    if not tree:
         return None
-    
-    # sorts the array as integer
-    array = sorted(array, key=int)
-    
-    # find mid
-    mid = (len(array)) / 2
-    mid = int(mid)
-    
-    # make middle element the root
-    root = Node(array[mid])
-    
-    # left subtree root has all
-    # values < array[mid]
-    root.left = array_to_bst(array[:mid])
-    
-    # right subtree of root has all
-    # values > array[mid]
-    root.right = array_to_bst(array[mid + 1:])
-    # returns the root
-    return root
-
-def find_split_node(tree, x, y):
-    v = root(tree)
-    v1 = v
-    while v != node and y <= v1 > x:
-        if y <= v1:
-            v = root.left
-        else:
-            v = root.right
-    v1 = v
-    return v
+    tree = sorted(tree, key=int)
+    tree_len = len(tree)
+    interval = range(int(interval1), int(interval2) + 1)
+    if tree_len == 1 and tree[0] in interval:
+        return tree[0]
+    if tree_len < 1:
+        return None
+    tredian = tree[tree_len // 2]
+    left_leaf = tree[:tree.index(tredian)]
+    right_leaf = tree[tree.index(tredian):]
+    if tredian in interval:
+        return tredian, one_d_range(left_leaf, interval1, interval2), one_d_range(right_leaf, interval1, interval2)
+    elif tredian < interval1:
+        return one_d_range(right_leaf, interval1, interval2)
+    elif tredian > interval2:
+        return one_d_range(left_leaf, interval1, interval2)
+        
     
 def input_function():
     c = 0   # Initalises a counter
@@ -68,25 +48,19 @@ def input_function():
         c += 1
     #print(query_values) #DEBUG
     return query_values, input_list
-
-# def sub_list(query_values):
-#     # Should help iterate through sublists
-#     c = 0
-#     for x, y in query_values[c][c]:
-#         return x, y
-#     c += 1
-    
     
     
 def main():
     query_values, input_list = input_function()
     print(query_values)
-    BST = array_to_bst(input_list)
-    x, y = query_values[0]
-    find_split_node(BST, x, y)
-    
-    
-    
+    c = 0
+    for i in query_values:
+        print(query_values[c])
+        x, y = query_values[c]
+        groot = one_d_range(input_list, x, y)
+        print(groot)
+        c +=1
+
     
 if __name__ == '__main__':
     main()
