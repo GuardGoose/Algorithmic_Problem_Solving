@@ -6,39 +6,56 @@ Call this file Task11.
 """
 import sys
 
-def list_interval(list1, start, stop):
+def list_interval(list1, intervals):
     # This function is Theta(n)
     answer = [] # Initalises a empty list
     for elem in list1:
         # If the element is between or equal to
         # start or stop then it's appended to the list
-        if start <= int(elem) <= stop:
+        if intervals[0] <= int(elem) <= intervals[1]:
             answer.append(elem)
-    # List is printed
-    sys.stdout.write(str(answer))
+    # Lists are printed out on seperate lines.
+    sys.stdout.write(str(answer) + '\n')
     sys.stdout.flush()
             
 def input_string():
-    # Function is currently Theta(n)
-    a = []  # Initialises an empty list
-    # r respresents the size of the list
-    r = sys.stdin.readline().strip().split(" ")
-    # Adds r to r1
-    r1 = ''.join(r)
-    # Input a value for the size of r1
-    # e.g. if r = 3, then the list would contain 3 elements
-    # e.g. [1, 2, 3]
-    for i in range(int(r1)):
-        a.extend(sys.stdin.readline().strip().split(" "))
-    print(a)    # DEBUG
-    # This take the range for which the elements will be searched.
-    start, stop = sys.stdin.readline().strip().split(" ")
-    start = int(start)
-    stop = int(stop)
-    list_interval(a, start, stop)
+    c = 0   # Initalises a counter
+    query_values = []   # Initalises an empty list
+    input_list = [] # Initalises an empty list
+    # Takes the input of standard list size and no of queries
+    # on a single line, seperated by a space
+    list_size, no_queries = sys.stdin.readline().strip().split(" ")
+    # For loop is executed in the range of list_size
+    for i in range(int(list_size)):
+        # Takes the input of the list and adds it to a list
+        input_list.extend(sys.stdin.readline().strip().split(" "))
+        # Converts list from string to int
+        input_list = [int(i) for i in input_list]
+    #print(input_list)   # DEBUG
+    # Creates sublists in the query_values where
+    # the start, and stop values will be stored
+    # e.g no_queries = 3, query_values = [[], [], []]
+    query_values = [[] for i in range(int(no_queries))]
+    for i in range(int(no_queries)):    # For the size of no_queries
+        start, stop = sys.stdin.readline().strip().split(" ")
+        # Start and stop get added to a sublist.
+        query_values[c].append(start)
+        query_values[c].append(stop)
+        # Changes to integers
+        query_values[c] = [int(x) for x in query_values[c]]
+        # Increments by 1 so sepereate queries get
+        # added to sepereate sublists
+        c += 1
+    #print(query_values) #DEBUG
+    return query_values, input_list
 
 def main():
-    input_string()
-
+    query_values, input_list = input_string()
+    c = 0 
+    for i in query_values:
+        list_interval(input_list, query_values[c])
+        c += 1
+    
+    
 if __name__ == '__main__':
     main()

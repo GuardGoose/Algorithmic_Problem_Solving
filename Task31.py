@@ -5,7 +5,7 @@ def matrix(input_list, d, querys):
     for point in input_list:
         c = 0
         for i in range(d):
-            if querys[0] <= point[i] <= querys[1]:
+            if querys[0] <= int(point) <= querys[1]:
                 c += 1
     if c == d:
         n.append(point)
@@ -19,11 +19,18 @@ def input_function():
     # on a single line, seperated by a space
     list_size, dimensions, no_queries = sys.stdin.readline().strip().split(" ")
     # For loop is executed in the range of list_size
-    for i in range(int(list_size)):
-        # Takes the input of the list and adds it to a list
-        input_list.append(sys.stdin.readline().strip().split(" "))
+    dimensions = [int(x) for x in dimensions[0]]
+    if dimensions[0] == 1:
+        for i in range(int(list_size)):
+        # Takes the input of the list and extends it to a
+        # single dimension array
+            input_list.extend(sys.stdin.readline().strip().split(" "))
+    elif dimensions[0] >= 2:
+        for i in range(int(list_size)):
+            # Takes the input of the list and extends it to a
+            # multi dimension array
+            input_list.append(sys.stdin.readline().strip().split(" "))
         # Converts list from string to int
-        #input_list = [int(i) for i in input_list]
     print(input_list)   # DEBUG
     # Creates sublists in the query_values where
     # the start, and stop values will be stored
@@ -44,9 +51,10 @@ def input_function():
 
 def main():
     query_values, dimensions, input_list = input_function()
-    
+    c = 0
     for i in query_values:
-        groot = matrix(input_list, dimensions,query_values[i])
+        groot = matrix(input_list, dimensions,query_values[c])
+        c += 1
 
 if __name__ == '__main__':
     main()
