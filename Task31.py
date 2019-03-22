@@ -32,6 +32,7 @@ def input_function():
             input_list.append(sys.stdin.readline().strip().split(" "))
         # Converts list from string to int
     print(input_list)   # DEBUG
+    print(dimensions)   # DEBUG
     # Creates sublists in the query_values where
     # the start, and stop values will be stored
     # e.g no_queries = 3, query_values = [[], [], []]
@@ -53,7 +54,7 @@ def main():
     query_values, dimensions, input_list = input_function()
     c = 0
     for i in query_values:
-        groot = matrix(input_list, dimensions,query_values[c])
+        groot = matrix(input_list, dimensions[0],query_values[c])
         c += 1
 
 if __name__ == '__main__':
