@@ -47,7 +47,7 @@ def input_function():
         input_list.extend(sys.stdin.readline().strip().split(" "))
         # Converts list from string to int
         input_list = [int(i) for i in input_list]
-    print(input_list)   # DEBUG
+    #print(input_list)   # DEBUG
     # Creates sublists in the query_values where
     # the start, and stop values will be stored
     # e.g no_queries = 3, query_values = [[], [], []]

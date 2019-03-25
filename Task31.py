@@ -6,10 +6,11 @@ def matrix(input_list, d, querys):
         c = 0
         for i in range(d):
             if querys[0] <= int(point) <= querys[1]:
+                n.append(point)
                 c += 1
     if c == d:
         n.append(point)
-    return n
+    print(n)
 
 def input_function():
     c = 0   # Initalises a counter
@@ -47,7 +48,7 @@ def input_function():
         # Increments by 1 so sepereate queries get
         # added to sepereate sublists
         c += 1
-    print(query_values) #DEBUG
+    #print(query_values) #DEBUG
     return query_values, dimensions, input_list
 
 def main():

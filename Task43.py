@@ -1,25 +1,71 @@
+from ast import literal_eval
 import sys
-from statistics import median
 
-def BuildKDTree(tree, depth=0):
-    tree = sorted(tree, key=int)
-    
-    if len(tree) == 0:
-        return
-    
-    elif len(tree) == 1:
-        return tree[0]
-    
-    if len(tree) % 2 != 0:
-        tredian = median(tree)
-        
+
+
+class Node:
+    def __init__(self, value, left=None, right=None):
+        self.data = value
+        self.left = left
+        self.right = right
+
+
+def BuildKDTree(kdtree, depth=0):
+    try:
+        # needed to check when there are singletons
+        depth_space = len(kdtree[0])
+
+    # These are just to catch any errors that
+    # may stop the program
+    except TypeError:
+        pass
+    except IndexError:
+        return kdtree[1:]
+    # Takes the length of the KDtree
+    # and if it's even reduces the length by 1
+    if len(kdtree) % 2 == 0:
+        length = len(kdtree) - 1
     else:
-        tredian = median(tree[:-1])
-        
-    p_left = tree[:tree.index(tredian)]
-    p_right = tree[tree.index(tredian) + 1:]
-    v_left = BuildKDTree(p_left, depth + 1)
-    v_right = BuildKDTree(p_right, depth + 1)
-    return tredian, v_left, v_right
+        length = len(kdtree)
+    # takes the median of the tree.
+    median = int(length // 2)
+    # Returns the KD tree.
+    return Node(
+        kdtree[median],
+            BuildKDTree(kdtree[:median], depth + 1),
+            BuildKDTree(kdtree[median + 1:], depth + 1)
+    )
 
-print(BuildKDTree([[12,3,2,4,643,232],[12,65,87,453,343],[6,5,3,0,2,3]]))
+def input_function():
+    # Initalises the lists
+    query_values = []
+    input_list = []
+    # Takes the input for list size, dimensions and number
+    # of queries
+    list_size, dimensions, no_queries = sys.stdin.readline().strip().split(" ")
+    # Loop is executed in range of list_size
+    for i in range(int(list_size)):
+        # Takes the input and adds to the list
+        lst = sys.stdin.readline().strip().split(" ") 
+        input_list.append(lst)  
+    # Loop is executed in range of no_queries
+    for i in range(int(no_queries)):
+        # Replaces the blank spaces with commas, so "literal_eval"
+        # can be used.
+        # Literal Eval just makes sure the input is a valid datatype.
+        # If it isn't then it rasies an error
+        lst2 = input().replace(" ", ", ")
+        query_values.append(literal_eval(lst2))
+    # Returns the values
+    return input_list, query_values
+
+def main():
+    value, query = input_function()
+    value.sort()
+    groot = BuildKDTree(value)
+    print(groot.data)
+    print(groot.left.data, groot.right.data)
+    print(groot.left.left.data, groot.left.right.data, groot.right.left.data, groot.right.right.data)
+
+if __name__ == "__main__":
+    main()

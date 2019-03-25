@@ -64,12 +64,12 @@ def find_range(items, values):
 	return items[start:end]
 
 def inorder_traversal(root):
-	res = []
+	lst = []
 	if root:
-		res = inorder_traversal(root.left)
-		res.append(root.data)
-		res = res + inorder_traversal(root.right)
-	return res
+		lst = inorder_traversal(root.left)
+		lst.append(root.data)
+		lst = lst + inorder_traversal(root.right)
+	return lst
 	
 
 def main():

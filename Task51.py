@@ -1,105 +1,100 @@
+from ast import literal_eval
 import sys
- 
-numbers_list = []
-limits = []
- 
- 
+import math
+
 class Node:
     def __init__(self, value, left=None, right=None):
-        self.v = value
-        self.l = left
-        self.r = right
- 
-    def is_leaf(self):
-        return self.r is None and self.l is None
- 
- 
-def BuildKDTree(P, d=0):
+        self.data = value
+        self.left = left
+        self.right = right
+
+    def leaf(self):
+        return self.right is None and self.left is None
+
+def build_kd_tree(kdtree, depth=0):
     try:
-        d_space = len(P[0])
-        # not needed
-        axis = d % d_space
-        P.sort()
- 
+        depth_space = len(kdtree[0])
+        kdtree.sort()
     except TypeError:
         pass
     except IndexError:
-        return P
- 
-    if len(P) % 2 == 0:
-        median = int((len(P)-1) / 2)
+        return kdtree[1:]
+    if len(kdtree) % 2 == 0:
+        length = len(kdtree) - 1
     else:
-        median = int(len(P) / 2)
- 
+        length = len(kdtree)
+    median = int(length // 2)
     return Node(
-                P[median],
-                BuildKDTree(P[:median], d + 1),
-                BuildKDTree(P[median + 1:], d + 1)
-               )
- 
- 
-def intersect(minMax1,minMax2):
-    for d in range(0, D):
-        if not (minMax2[0][d] <= minMax1[0][d] <= minMax2[1][d] or
-                minMax2[0][d] <= minMax1[1][d] <= minMax2[1][d] or
-                minMax1[0][d] <= minMax2[0][d] <= minMax1[1][d] or
-                minMax1[0][d] <= minMax2[1][d] <= minMax1[1][d]):
+        kdtree[median],
+        build_kd_tree(kdtree[:median], depth + 1),
+        build_kd_tree(kdtree[median + 1:], depth + 1),
+        )
+
+def intersect(minMax1, minMax2):
+    for data in range(0, int(sys.stdin.readline().split())):
+        if not (minMax2[0][data] <= minMax1[0][data] <= minMax2[1][data] or
+                minMax2[0][data] <= minMax1[1][data] <= minMax2[1][data] or
+                minMax1[0][data] <= minMax2[0][data] <= minMax1[1][data] or
+                minMax1[0][data] <= minMax2[1][data] <= minMax1[1][data]):
             return False
     return True
- 
- 
-def SearchKDTree(v, s, f):
-    if v.l != []:
-        if isFullyContained(v.l.v, s, f):
-            report.append(v.l.v)
-        SearchKDTree(v.l, s, f)
- 
-    if v.r != []:
-        if isFullyContained(v.r.v, s, f):
-            report.append(v.r.v)
-        SearchKDTree(v.r, s, f)
- 
- 
-def isFullyContained(region, s, f):
-    for d in range(0, D):
-        if not (s[d] <= region[d] <= f[d]):
+
+def fully_contained(region, x, y):
+    for data in range(0, int(dimensions)):
+        if not (x[data] <= region[data] <= y[data]):
             return False
     return True
- 
- 
-def map_list():
-    test = sys.stdin.readline().replace("[", '').replace("]", '').split()
-    return list(map(int, test))
- 
- 
-def input_lists(specs):
-    # i never have the need to use D as long as input is correct
-    for R in range(specs[0]):
-        numbers_list.append(map_list())
- 
-    for Q in range(specs[2]):
-        ph = input().replace(" ", ", ")
-        limits.append(literal_eval(ph))
- 
-    return specs[1]
- 
- 
-D = input_lists(map_list())
- 
-tree = BuildKDTree(numbers_list)
- 
-st = default_timer()
- 
-for s, f in limits:
-    report = []
- 
-    if isFullyContained(tree.v, s, f):
-        report.append(tree.v)
- 
-    SearchKDTree(tree, s, f,)
-    for value in sorted(report):
-        print((str(value).replace(",", "")), end=' ')
-    if report:
-        print('asd')
-    else:
-        print("No pass")
+
+def search_kdtree(data, x, y):
+    if data.left != []:
+        if fully_contained(data.left.data, x, y):
+            report.append(data.left.data)
+        search_kdtree(data.left, x, y)
+    if data.right != []:
+        if fully_contained(data.right.data, x, y):
+            report.append(data.right.data)
+        search_kdtree(data.right, x, y)
+
+def input_function():
+        # Initalises the lists
+    query_values = []
+    input_list = []
+    # Takes the input for list size, dimensions and number
+    # of queries
+    list_size, dimensions, no_queries = sys.stdin.readline().strip().split(" ")
+    # Loop is executed in range of list_size
+    for i in range(int(list_size)):
+        # Takes the input and adds to the list
+        lst = sys.stdin.readline().strip().split(" ") 
+        input_list.append(lst)  
+    # Loop is executed in range of no_queries
+    for i in range(int(no_queries)):
+        # Replaces the blank spaces with commas, so "literal_eval"
+        # can be used.
+        # Literal Eval just makes sure the input is a valid datatype.
+        # If it isn't then it rasies an error
+        lst2 = input().replace(" ", ", ")
+        query_values.append(literal_eval(lst2))
+    # Returns the values
+    return input_list, dimensions, query_values
+
+def main():
+    input_list, dimensions, query_values = input_function()
+    groot = build_kd_tree(input_list)
+    for x, y in query_values:
+        answer = []
+        if fully_contained(groot.data, x, y):
+            answer.append(tree.data)
+            answer.sort()
+        search_kdtree(groot, x, y)
+        for i in answer:
+            print((str(i).replace(",", "")),end=' ')
+        if answer:
+            print('Pass')
+        else:
+            print("No pass")
+
+
+
+if __name__ == "__main__":
+    main()
