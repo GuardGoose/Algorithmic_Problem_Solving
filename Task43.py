@@ -1,6 +1,12 @@
 from ast import literal_eval
 import sys
 
+"""
+This folder implementes the BuildKDTree algorithm, but it only
+builds and prints the tree, the task only says to implement
+the algorithm.
+
+"""
 
 
 class Node:
@@ -63,6 +69,7 @@ def main():
     value, query = input_function()
     value.sort()
     groot = BuildKDTree(value)
+    # Prints the tree
     print(groot.data)
     print(groot.left.data, groot.right.data)
     print(groot.left.left.data, groot.left.right.data, groot.right.left.data, groot.right.right.data)
